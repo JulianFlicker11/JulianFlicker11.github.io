@@ -15,6 +15,6 @@ This repository is meant for holding assignments
 ## Websites I use often
 
 * [novelbin](https://novelbin.com/)  
-reading a book called shadow slave
-* [youtube](https://www.youtube.com/)
+reading a book called shadow slave  
+* [youtube](https://www.youtube.com/)  
 Love video essays

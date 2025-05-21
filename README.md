@@ -1,8 +1,8 @@
-# JulianFlicker11.github.io
-Julian Flicker
-jflicker@my.waketech.edu
-This is my school account
-This repository is meant for holding assignments
+# JulianFlicker11.github.io  
+Julian Flicker  
+jflicker@my.waketech.edu  
+This is my school account  
+This repository is meant for holding assignments  
 
 # About Me
 My name is Julian, and I am in the WAKE Tech CCP program for high schoolers  

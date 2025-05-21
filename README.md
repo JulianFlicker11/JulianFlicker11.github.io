@@ -15,8 +15,8 @@ i don't do much
 ## Interests
 * Working out
 * gaming 
- * Minecraft
- * BOPL 
+	* Minecraft
+	* BOPL 
 *Too many hours on this game*
  
 ## Websites I use often

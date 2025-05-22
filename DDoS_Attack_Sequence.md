@@ -13,7 +13,7 @@ WebServer->>Firewall: Analyze traffic
 Firewall->>WebServer: Recognize IP and deny access 
 ```
 
-## In-depth analysis of the processes and contributions 
+## In-depth analysis of the DDoS attack
 
 The Attacker sends a command to the botnet to attack the web server, leading the collection of bots to spam
 the server with multiple requests. On the web server's end, it directs the traffic to the firewall to 

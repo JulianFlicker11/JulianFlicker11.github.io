@@ -30,7 +30,7 @@
 
         function calculateMortgage() {
             // Get the initial amount from the principal box
-            const principal = document.getElementById("principle").value;
+            const principal = document.getElementById("principal").value;
 
             // update rate from the box
             
@@ -39,7 +39,7 @@
             const years = document.getElementById("years").value;
 
             // Call the power funtion, pow, from Math
-            const monthlyRate = Math.pw(1 + rate, years * 12);
+            const monthlyRate = Math.pow(1 + rate, years * 12);
 
             if (rate === 0) {
                 document.getElementById("result").innerText = "Interest rate cannot be zero.";

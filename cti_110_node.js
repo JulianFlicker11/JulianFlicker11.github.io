@@ -1,32 +1,48 @@
 const express = require('express');
-const { Pool } = require('pg');
 const app = express();
+const PORT = 3000;
 
-// PostgreSQL connection
-const pool = new Pool({
-  user: 'postgres', // default username
-  host: 'localhost',
-  database: 'your_database_name', // e.g., 'school'
-  password: 'your_password', // if you set one
-  port: 5432,
-});
+// Middleware to parse JSON and serve static files
+app.use(express.json());
+app.use(express.static('public')); // Folder for gradebook.html/js
 
-// Enable CORS (if needed)
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
-
-// API endpoint
-app.get('/api/grades', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT first_name, last_name, total_grade FROM students;');
-    res.json(result.rows);
-  } catch (err) {
-    console.error('Database error:', err);
-    res.status(500).send('Server error');
-  }
+// Mock API endpoint (replace with real DB logic)
+app.get('/api/grades', (req, res) => {
+  res.json([
+    { first_name: "John", last_name: "Doe", total_grade: 90 },
+    { first_name: "Jane", last_name: "Smith", total_grade: 85 }
+  ]);
 });
 
 // Start server
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+
+
+
+// Server Communication
+function fetchGradeData() {
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", "/api/grades", true);
+  xhr.onreadystatechange = function() {
+    if(xhr.readyState === 4) {
+      if(xhr.status === 200) {
+        populateGradebook(JSON.parse(xhr.responseText));
+      } else {
+        console.error(`Request failed: ${xhr.status}`);
+      }
+    }
+  };
+  xhr.send();
+}
+
+// Table Population
+function populateGradebook(data) {
+  const table = document.getElementById("gradebook");
+  data.forEach(item => {
+    const row = table.insertRow();
+    row.insertCell().textContent = `${item.last_name}, ${item.first_name}`;
+    row.insertCell().textContent = item.total_grade;
+  });
+}

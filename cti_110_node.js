@@ -1,60 +1,32 @@
-
-// This section loads modules.  It loads the Express server and stores
-// it in "express", then creates a application, a router, and a path handler
 const express = require('express');
+const { Pool } = require('pg');
 const app = express();
-const router = express.Router();
-const path = require('path');
 
-// This part sets up the database
-const {Pool} = require('pg');
-// You may need to modify the password or database name in the following line:
-const connectionString = `postgres://postgres:CTI_110_WakeTech@localhost/Gradebook`;
-// The default password is CTI_110_WakeTech
-// The default database name is Gradebook
-const pool = new Pool({connectionString:connectionString})
-
-// This line says when it's looking for a file linked locally,
-// check in sub-folder "public"
-app.use(express.static(path.join(__dirname, 'public')));
-
-// This creates a new anonymous function that runs whenever 
-// someone calls "get" on the server root "/"
-router.get('/', function(req, res){
-    // It just returns a file to their browser 
-    // from the same directory it's in, called gradebook.html
-    res.sendFile(path.join(__dirname, 'gradebook.html'));
+// PostgreSQL connection
+const pool = new Pool({
+  user: 'postgres', // default username
+  host: 'localhost',
+  database: 'your_database_name', // e.g., 'school'
+  password: 'your_password', // if you set one
+  port: 5432,
 });
 
-app.use("/", router);
-
-router.get('/api/grades',function(req, res){
-    pool.query(
-        `SELECT Students.student_id, first_name, last_name, AVG(assignments.grade) as total_grade \
-            FROM Students  \
-            LEFT JOIN Assignments ON Assignments.student_id = Students.student_id \
-            GROUP BY Students.student_id \
-            ORDER BY total_grade DESC`,
-        [],
-        function( err, result){
-            if(err)
-            {
-                console.error(err);
-            }
-            
-            result.rows.forEach( 
-                    function(row){
-                        console.log(`Student Name: ${row.first_name} ${row.last_name}`);
-                        console.log(`Grade: ${row.total_grade}`);
-                    }
-            ); // End of forEach
-            
-            res.status(200).json(result.rows);
-        }
-    );
+// Enable CORS (if needed)
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
 });
 
-let server = app.listen(3000, function(){
-    console.log("App Server via Express is listening on port 3000");
-    console.log("To quit, press CTRL + C");
+// API endpoint
+app.get('/api/grades', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT first_name, last_name, total_grade FROM students;');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Server error');
+  }
 });
+
+// Start server
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));

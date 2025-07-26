@@ -20,20 +20,21 @@ function fetchGradeData() {
 function populateGradebook(data) {
     console.log("Populating gradebook UI with data:", data);
     let tableElm = document.getElementById("gradebook");
-        data.foreach(function(assignment){
+        data.forEach(function(assignment){
             let row = document.createElement("tr");
             let colums = []
             colums.name = document.createElement("td");
-            colums.name.appendchild(
+            colums.name.appendChild(
                 document.createTextNode(assignment.last_name + ", " + assignment.first_name)
             );
             colums.grade = document.createElement('td');
-            collums.grade.appendchild(
+            colums.grade.appendChild(
                 document.createTextNode(assignment.total_grade)
             );
-            row.appendchild(colums.name);
-            row.appendchild(colums.grade);
+            row.appendChild(colums.name);
+            row.appendChild(colums.grade);
             tableElm.appendChild(row);
         });
 }
 
+fetchGradeData();

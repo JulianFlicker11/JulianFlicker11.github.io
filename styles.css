@@ -1,30 +1,40 @@
+/* General page styling */
 body {
     font-family: Arial, sans-serif;
-    background:#303030;   /* black background */
-    color: #fff;
-    margin: 0;
+    background-color: #303030; /* Black background */
+    color: #fff;            /* White text */
+    margin: 30;
     padding: 20px;
+    text-align: center;     /* Center all text by default */
 }
 
+/* Sections (boxes) */
 .section-box {
-    background: #222;
-    padding: 20px;
-    border-radius: 12px;
-    margin: 20px auto;
-    width: 80%;         /* centers the box */
+    background-color: #222; /* Dark gray boxes */
+    padding: 15px;
+    margin: 10px auto;      /* Smaller spacing between sections */
+    width: 80%;
+    border-radius: 10px;
+    box-sizing: border-box;
 }
 
+/* Headings */
 h1, h2, h3 {
-    text-align: center;
+    margin: 10px 0;
 }
 
+/* Links */
 a {
-    color: #ffff66;
+    color: blue; /* Yellow links */
+    text-decoration: none;
 }
 
+
+/* Profile Image */
 .profile-img {
-    width: 300px;
     display: block;
-    margin: auto;
-    border-radius: 12px;
+    margin: 0 auto 10px auto; /* Center + small space below */
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
 }
